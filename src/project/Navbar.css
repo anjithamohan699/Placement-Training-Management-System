@@ -29,7 +29,6 @@ body{
 @media (min-width: 768px) {
   .navbar {
     height: 6rem; /* Adjust height for larger screens if needed */
-    padding: 0 50px; /* Increase padding for better spacing */
   }
 
   label {
@@ -41,7 +40,6 @@ body{
 @media (max-width: 780px) {
   .navbar {
     height: 4rem; /* Decrease height for phones */
-    padding: 0 15px; /* Reduce padding for smaller screens */
   }
 
   label {
