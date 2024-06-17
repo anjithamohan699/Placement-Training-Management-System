@@ -1,6 +1,7 @@
 {
   "name": "placement",
   "private": true,
+  "homepage": "https://anjithamohan699.github.io/Placement-Management",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
