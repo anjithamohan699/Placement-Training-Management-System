@@ -38,7 +38,7 @@ body{
 }
 
 /* Smaller screens (phones) */
-@media (max-width: 767px) {
+@media (max-width: 780px) {
   .navbar {
     height: 4rem; /* Decrease height for phones */
     padding: 0 15px; /* Reduce padding for smaller screens */
