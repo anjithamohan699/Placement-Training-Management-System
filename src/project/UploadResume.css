@@ -1,0 +1,70 @@
+body.active-modal{
+    overflow-y: hidden;
+  }
+  
+  .overlay{
+    background: rgba(49,49,49,0.8);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+  }
+  
+  .modal-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    width: 350px;
+    height: 175px;
+  }
+  
+  .upload-btn{
+    width: 90px;
+    height: 35px;
+    border-radius: 4px;
+    background-color: #043565;
+    color: white;
+    border: 0;
+    margin-left: 20px;
+    margin-top: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .cancel-btns{
+    width: 90px;
+    height: 35px;
+    margin-left: 140px;
+    margin-top: 25px;
+    background-color: #043565;
+    color: white;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 4px;
+  }
+
+  .modal-content h4{
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 105px;
+    color: rgb(70, 67, 67);
+  }
+  
+  .modal-content input{
+    width: 330px;
+  }
+
+  .btn-outline-div{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .modal-content .resume-input-new{
+    width: 320px;
+  }

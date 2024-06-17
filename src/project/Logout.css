@@ -1,0 +1,73 @@
+
+/* logout.css */
+body.active-modal{
+    overflow-y: hidden;
+  }
+  
+  .logout-btn{
+    padding: 10px 20px;
+    display: block;
+    margin: 100px auto 0;
+    font-size: 18px;
+  }
+  
+  .modals , .overlays{
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+  }
+  
+  .overlays{
+    background: rgba(49,49,49,0.8);
+  }
+  
+  .modal-contents{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    width: 450px;
+    height: 200px;
+    margin-top: 50px;
+  }
+  
+  .log-btn {
+    width: 120px;
+    height: 35px;
+    background-color: #043565;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    margin-left: 150px;
+  }
+  
+  .cancel-btn {
+    width: 120px;
+    height: 35px;
+    background-color: #043565;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    margin-left: 30px;
+  }
+  
+  .modal-contents h4{
+    font-size: large;
+    padding-left: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+    color: rgb(70, 67, 67);
+  }
+  

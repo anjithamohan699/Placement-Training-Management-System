@@ -1,0 +1,95 @@
+.student-details-table {
+    width: 1100px;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    margin-left: 25px;
+  }
+  
+  .student-details-table th, .student-details-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+  }
+
+  .student-details-table th {
+    background-color: #043565;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .student-details-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .student-details-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .student-details-table button {
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #093768;
+    color: #fff;
+    font-size: 12px;
+  }
+  
+  .student-details-table button:hover {
+    background-color: #ee0a0a;
+  }
+  
+  /* Add some spacing between the table and the buttons */
+  .student-details-table td button {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  
+  /* Add some vertical spacing between the table rows */
+  .student-details-table tbody tr:not(:last-child) {
+    border-bottom: none;
+  }
+  
+  .student-details-table tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Add some styles for the sort by field */
+  .stud-div-container select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 250px;
+    margin-left: 25px;
+    color: rgb(70, 67, 67);
+  }
+  
+  .stud-div-container{
+    margin-left: 27px;
+    border: 1px solid rgb(206, 204, 204);
+    margin-top: 25px;
+    width: 1150px;
+  }
+
+  .stud-div-container h3{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 21px;
+    color: rgb(70, 67, 67);
+    margin-bottom: 30px;
+  }
+
+  .student-details-container{
+    max-height: 550px; /* Set maximum height for the table */
+    overflow-y: auto; 
+  }
+
+  .student-details-table thead{
+    position: sticky;
+    top: 0;
+  }

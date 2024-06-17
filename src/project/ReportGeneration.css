@@ -1,0 +1,90 @@
+.report-generation {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .input-field-report {
+    margin-bottom: 20px;
+  }
+  
+  .input-field-report label,.department-input-report label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgb(70, 67, 67);
+    margin-left: 35px;
+  }
+
+  #event-select-report {
+    width: 1050px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 30px;
+  }
+
+  .input-field-report input ,.department-input-report input{
+    width: 1050px; /* Adjust width as needed */
+    font-size: 18px; /* Match the font size of the event name */
+    margin-left: 30px;
+  }
+
+  .report-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #043565;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 40px;
+    height: 45px;
+    margin-left: 475px;
+  }
+  
+  .report-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* App.css */
+  
+  .emblem {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+  }
+  
+  .main-heading {
+    font-size: medium;
+    position: absolute;
+    top: 40px; /* Adjust as needed */
+    left: 140px; /* Adjust as needed */
+    /* Add any other styles for the main heading */
+  }
+  /* App.css */
+  
+  .event-heading {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 20px; /* Adjust margin as needed */
+    text-decoration:underline;
+  }
+  
+
+  .report-div{
+    width: 1115px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-top: 25px;
+    height: 600px;
+    margin-left: 25px;
+  }
+      
+  .report-div h1{
+    color: rgb(70, 67, 67);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }

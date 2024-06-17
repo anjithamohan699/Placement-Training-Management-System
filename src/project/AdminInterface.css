@@ -1,0 +1,259 @@
+.navbar1 {
+  width: 100%;
+  height: 5rem;
+  background-color: #043565;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label {
+  font-weight: 700;
+  font-size: 14px;
+  text-shadow: none;
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.logo1 label{
+  color: white;
+  font-size: 14px;
+  margin-top: 25px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.first-portion1 {
+  display: flex;
+  align-items: center;
+}
+
+.last-portion1{
+  display:flex;
+  align-items:center;
+  margin-top: 30px;
+  list-style: none;
+}
+
+.last-portion1 ul{
+  display:flex;
+  padding:0;
+  margin-top: 200px;
+  font-size: 18px;
+}
+
+.navbar1 p{
+  float:left;
+  color:white;
+  text-align: center;
+  padding:10px;
+  text-decoration: none;
+  font-size:18px;
+  line-height: 15px;
+  border-radius:4px;
+}
+
+.navbar1 list{
+  text-decoration: none;
+  color:white;
+  margin:0 1rem;
+}
+
+.list{
+  text-decoration:none;
+  color:white;
+  margin:0 1rem;
+  padding:10px;
+  text-decoration: none;
+  display: flex;
+}
+
+body{
+  margin: 0;
+}
+
+.nav-lists.active{
+  background-color: rgba(137, 137, 137, 0.5);
+  border-bottom: 3px solid white;
+  border-radius: 2px;
+  height: 25px;
+}
+  
+.icon{
+  height: 50px;
+  width: 40px;
+}
+
+.sidebutton {
+  border-radius: 0px;
+  width: 300px;
+  height: 65px;
+  font-size: medium;
+  background-color: white;
+  border: 0cm;
+  color: rgb(70, 67, 67);
+  }
+  
+  .sidebutton:hover{
+      background-color: rgb(242, 242, 252);
+  }
+  
+  
+  .sidediv{
+      height: 65px;
+      width: 300px;
+      border-style: ridge;
+      border-color: rgb(206, 204, 204);
+      border-width: thin;
+      margin-bottom: -1px;
+  }
+  
+  
+
+  .image-admin{
+    width: 300px;
+    height: 340px;
+    background-color: white;
+    border-style: ridge;
+    border-color: rgb(206, 204, 204);
+    border-width: thin;
+    margin-bottom: -1px;
+  }
+  
+.admin-img{
+  width: 280px;
+  height: 320px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+  .show{
+      display: block;
+  }
+  .sidebutton:focus{
+      background-color: #043565;
+      color:white;
+  }
+  
+  .sidebar{
+    margin-left: 25px;
+    margin-top: 25px;
+  }
+
+  .outer-div{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .top-div{
+    width: 1160px;
+    height: 110px;
+    background-color: aqua;
+    margin-left: 25px;
+    margin-top: 25px;
+    background-color: white;
+    border-style: ridge;
+    border-color: rgb(206, 204, 204);
+    border-width: thin;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    position: relative;
+  }
+
+  .nav-lists{
+    text-decoration:none;
+    color:white;
+    margin:0 1rem;
+    padding:10px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+
+  /* Add this CSS to your existing styles or create a new CSS file */
+
+/* The Modal (background) */
+.modal-calendar {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content-calendar {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px; /* Could be more or less, depending on screen size */
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+/* Close Button */
+.close-calendar {
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 480px;
+}
+
+.close-calendar:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Button Container */
+.button-container-calendar {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.button-container-calendar button {
+  margin-left: 20px;
+  width: 100px;
+  height: 35px;
+  background-color: #043565;
+  border: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+
+.modal-content-calendar label{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 5px;
+  color: black;
+  margin-left: 10px;
+}
+
+.modal-content-calendar h2{
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-content-calendar .eventname-input{
+  width: 480px;
+  margin-left: 10px;
+}

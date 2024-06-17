@@ -1,0 +1,167 @@
+.attendance-container {
+    width: 1100px;
+    margin: 0 auto;
+    border: 1px solid rgb(206, 204, 204);
+    padding: 20px;
+    margin-left: 28px;
+    height: 790px;
+    margin-top: 25px;
+  }
+  
+  .attendance-container h1 {
+    text-align: center;
+    color: rgb(70, 67, 67);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+  }
+  
+  .input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .input-group #eventName{
+    width: 400px;
+    font-size: 15px;
+    display: inline-block;
+  }
+
+  .input-group #eventDate {
+    margin-right: 10px;
+    padding: 12px; /* Increased padding */
+    font-size: 16px;
+    width: 400px;
+    height: 40px;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+  }
+
+  .input-group #session,.input-group #batch{
+    width:400px
+  }
+  
+  .table-container {
+    position: relative;
+  }
+  
+  table {
+    width: 1100px;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  tbody td{
+    font-weight: lighter;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(70, 67, 67);
+    width: 100px;
+  }
+  
+  .header-table-attendance th {
+    position: sticky;
+    top: 0;
+    background-color: #043565;
+    color: white;
+  }
+
+  .head-name{
+    width: 700px;
+  }
+
+  thead{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .present {
+    background-color: #c8e6c9; /* Light green */
+  }
+  
+  .absent {
+    background-color: #fec6cb; /* Light red */
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .button-group button {
+    margin-left: 10px;
+  }
+  
+  .toggle-button-mark-present {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Increased padding */
+    font-size: 16px;
+  }
+  
+  .toggle-button-mark-absent {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Increased padding */
+    font-size: 16px;
+  }
+  
+  .clear-button-attendance, .submit-button-attendance {
+    background-color: #043565;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Increased padding */
+    font-size: 16px;
+  }
+  
+  .attendevent-input, .attenddate-input {
+    padding: 20px; /* Increased padding */
+    font-size: 200px;
+  }
+
+  .check-present
+  {
+    width: 60px;
+  }
+
+  .table-container-attendance{
+    max-height: 500px; /* or any preferred height */
+    overflow-y: auto;
+    display: block;
+  }
+
+  .date-input{
+    color: rgb(70, 67, 67);
+  }
+
+  .header-table-attendance {
+    position: sticky;
+    top: 0;
+    background-color: white;
+  }
+
+  .input-group label{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(70, 67, 67);
+    display: inline-block;
+    font-weight: lighter;
+    font-size: 17px;
+    margin-top: 15px;
+  }
+
+  .check-status{
+    width: 150px;
+  }

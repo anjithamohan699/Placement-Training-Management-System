@@ -1,0 +1,61 @@
+.notification-container-fac {
+    width: 1115px;
+    height: 570px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-top: 25px;
+    margin-left: 25px;
+  }
+  
+  .notification-container-fac h1 {
+    font-size: 20px;
+    margin-bottom: 50px;
+    margin-top: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(70, 67, 67);
+    text-align: center;
+  }
+  
+  .notification-container-fac label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgb(70, 67, 67);
+    margin-left: 35px;
+  }
+  
+  .notification-container-fac select,
+  .notification-container-fac input[type="file"] {
+    width: 1050px;
+    padding: 8px;
+    margin-top: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 30px;
+  }
+  
+  .notification-container-fac textarea{
+    width: 1043px;
+    margin-left: 30px;
+  }
+
+  .notification-container-fac button {
+    padding: 12px 20px;
+    background-color: #043565;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .notification-container-fac button:hover {
+    background-color: #0056b3;
+  }
+  
+  .notification-container-fac ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .notification-container-fac li {
+    margin-bottom: 8px;
+  }

@@ -1,0 +1,58 @@
+.background{
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+    margin-left: 600px;
+}
+
+.toast-message{
+    width: 600px;
+    height: 50px;
+}
+
+.login{
+    font-size: 30px;
+    color: #043565;
+    margin-top: 0cm;
+    font-family: Arial, Helvetica, sans-serif ;
+    margin-bottom: 30px;
+}
+
+.input-login{
+    height: 35px;
+    width: 240px; 
+    margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif ;
+    border-width: thin;
+    border-color: rgb(188, 186, 186);
+    border-radius: 0;
+    margin-left: 0;
+}
+
+.submit-login{
+    height: 35px;
+    width: 240px; 
+    border: none;
+    background-color: #043565;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif ;
+    border-radius: 0;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.password-forgot{
+    margin-top: 30px;
+    margin-bottom: 0;
+    text-decoration: none;
+    color: blue;
+    font-size: medium;
+    font-family: Arial, Helvetica, sans-serif ;
+    cursor: pointer;
+}
