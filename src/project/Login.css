@@ -56,3 +56,85 @@
     font-family: Arial, Helvetica, sans-serif ;
     cursor: pointer;
 }
+
+/* Media query for screens smaller than 1200px */
+@media (max-width: 1200px) {
+    .background {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .toast-message {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .login {
+        font-size: 28px;
+    }
+}
+
+/* Media query for screens smaller than 768px (tablets) */
+@media (max-width: 768px) {
+    .background {
+        width: 350px;
+        height: 350px;
+        margin-top: 100px;
+    }
+
+    .toast-message {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .login {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .input-login,
+    .submit-login {
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .password-forgot {
+        font-size: small;
+    }
+}
+
+/* Media query for screens smaller than 480px (phones) */
+@media (max-width: 480px) {
+    .background {
+        width: 80%;
+        max-width: 350px;
+        max-height: 350px;
+        margin-top: 100px;
+        padding: 20px;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+        height: 80%;
+    }
+
+    .toast-message {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .login {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .input-login,
+    .submit-login {
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .password-forgot {
+        font-size: small;
+        margin-top: 20px;
+    }
+}
