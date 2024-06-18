@@ -106,15 +106,15 @@
 /* Media query for screens smaller than 480px (phones) */
 @media (max-width: 480px) {
     .background {
-        width: 80%;
+        width: 75%;
         max-width: 350px;
-        max-height: 350px;
+        max-height: 400px;
         margin-top: 100px;
         padding: 20px;
         box-sizing: border-box;
         margin-left: auto;
         margin-right: auto;
-        height: 80%;
+        height: 100%;
     }
 
     .toast-message {
@@ -125,6 +125,7 @@
     .login {
         font-size: 20px;
         margin-bottom: 15px;
+        margin-top: 20px;
     }
 
     .input-login,
@@ -135,6 +136,7 @@
 
     .password-forgot {
         font-size: small;
-        margin-top: 20px;
+        margin-top: 30px;
+        margin-bottom: 20px;
     }
 }
