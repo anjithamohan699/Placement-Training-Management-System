@@ -30,13 +30,13 @@ function ForgotPassword() {
         <>
             <Navbar />
             <div className="background-forgot"> 
-                <p className="reset-password"><IoIosLock style={{ fontSize: '3.5em', marginLeft: '60px' , marginTop: '65px'}}/><br />Trouble Logging In?</p>
+                <p className="reset-password"><IoIosLock className='lock-icon'/><br />Trouble Logging In?</p>
                 <p className='paragraph'>Enter your email and we'll send you a link to get back into your account</p>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                
                     <input className="login-input" type="email" name="email" placeholder="Email" />
-                    <button className="submit-reset" type="submit">SUBMIT</button>
+                    <button onSubmit={(e) => handleSubmit(e)} className="submit-reset" type="submit">SUBMIT</button>
                     <p className='back-to-login' onClick={handleBackToLogin}>Back to Home</p>
-                </form>
+                
             </div>
         </>
     );
