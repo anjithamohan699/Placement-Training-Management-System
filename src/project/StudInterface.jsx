@@ -96,23 +96,26 @@ function StudInterface(props) {
   //   return () => unsubscribe();
   // }, []);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(collection(database, "faculty_notification")),
-      (snapshot) => {
-        const updatedNotifications = snapshot.docs.map((doc) => doc.data());
-        setNotifications(updatedNotifications);
+  
 
-        // Calculate notification count based on unviewed notifications
-        const unviewedNotifications = updatedNotifications.filter(
-          (notification) => !notification.viewedBy?.includes(cookie.email)
-        );
-        setNotificationCount(unviewedNotifications.length);
-      }
-    );
+useEffect(() => {
+  const unsubscribe = onSnapshot(query(collection(database, 'faculty_notification'), where('studentsToNotify', 'array-contains', cookie.email)), (snapshot) => {
+    const updatedNotifications = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+        viewedBy: data.viewedBy || []
+      };
+    });
+    setNotifications(updatedNotifications);
 
-    return unsubscribe;
-  }, [cookie.email]);
+    // Update notification count based on unviewed notifications
+    const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewedBy.includes(cookie.email));
+    setNotificationCount(unviewedNotifications.length);
+  });
+
+  return () => unsubscribe();
+}, [cookie.email]);
       
   return (
     <>

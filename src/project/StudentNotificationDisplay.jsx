@@ -85,20 +85,19 @@ function StudentNotificationDisplay() {
   
       getDocs(notificationsQuery)
         .then((notificationsSnapshot) => {
-          const fetchedNotifications = notificationsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            viewed: doc.data().viewedBy?.includes(userEmail) || false, // Check if the current user has viewed the notification
-          }));
-
-          // Sort notifications: unviewed ones first, then viewed ones
-          fetchedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
-
+          const fetchedNotifications = notificationsSnapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              viewedBy: data.viewedBy || []
+            };
+          });
+          fetchedNotifications.sort((a, b) => (a.viewedBy.includes(userEmail) === b.viewedBy.includes(userEmail) ? 0 : a.viewedBy.includes(userEmail) ? 1 : -1));
           setNotifications(fetchedNotifications);
-
-          // Calculate notification count
-          const unviewedCount = fetchedNotifications.filter((notification) => !notification.viewed).length;
-          setNotificationCount(unviewedCount);
+  
+          const unviewedNotifications = fetchedNotifications.filter((notification) => !notification.viewedBy.includes(userEmail));
+          setNotificationCount(unviewedNotifications.length);
         })
         .catch((error) => {
           console.error('Error fetching notifications:', error);
@@ -109,29 +108,23 @@ function StudentNotificationDisplay() {
   useEffect(() => {
     fetchNotifications();
   }, []);
-
-  const handleViewNotification = async (notification) => {
-    const user = auth.currentUser;
-    if (user) {
-      const userEmail = user.email;
-      setSelectedNotification(notification);
-      setShowModal(true);
-
-      // Mark notification as viewed if not already viewed by the current user
-      if (!notification.viewed) {
-        const notificationRef = doc(database, 'faculty_notification', notification.id);
-        await updateDoc(notificationRef, { viewedBy: arrayUnion(userEmail) });
-
-        // Update local state and notification count
-        const updatedNotifications = notifications.map((item) =>
-          item.id === notification.id ? { ...item, viewed: true } : item
-        );
-        setNotifications(updatedNotifications);
-        const unviewedCount = updatedNotifications.filter((notification) => !notification.viewed).length;
-        setNotificationCount(unviewedCount);
-      }
-    }
-  };
+  
+  const handleViewNotification = (notification) => {
+    setSelectedNotification(notification);
+    setShowModal(true);
+  
+    const notificationRef = doc(database, 'faculty_notification', notification.id);
+    updateDoc(notificationRef, {
+      viewedBy: [...(notification.viewedBy || []), cookie.email]
+    })
+      .then(() => {
+        console.log("Notification viewed status updated successfully");
+        fetchNotifications();
+      })
+      .catch((error) => {
+        console.error("Error updating notification viewed status: ", error);
+      });
+  };  
 
   const handleCloseModal = () => {
     setSelectedNotification(null);
@@ -273,7 +266,7 @@ function StudentNotificationDisplay() {
           </div>
           <div className="studNoti-notification-list">
             {notifications.map((notification) => (
-              <div key={notification.id} className={`studNoti-notification-item ${notification.viewed ? 'viewed' : 'unviewed'}`}>
+              <div key={notification.id} className={`studNoti-notification-item ${notification.viewedBy.includes(cookie.email) ? 'viewed' : 'unviewed'}`}>
                 <p className='date-para'>{formatDate(notification.timestamp)}</p>
                 <p className='description-para'>{notification.description}</p>
                 <button className="studNoti-view-details-button" onClick={() => handleViewNotification(notification)}>
