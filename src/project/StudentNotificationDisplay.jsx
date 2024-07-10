@@ -74,8 +74,8 @@ function StudentNotificationDisplay() {
   //     .catch((error) => {
   //       console.error("Error updating notification viewed status: ", error);
   //     });
-  // };
-  
+  // };  
+
   function fetchNotifications() {
     const user = auth.currentUser;
     if (user) {
@@ -88,13 +88,17 @@ function StudentNotificationDisplay() {
           const fetchedNotifications = notificationsSnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
-            viewed: doc.data().viewedBy?.includes(userEmail) || false,
+            viewed: doc.data().viewedBy?.includes(userEmail) || false, // Check if the current user has viewed the notification
           }));
+
+          // Sort notifications: unviewed ones first, then viewed ones
           fetchedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
+
           setNotifications(fetchedNotifications);
-  
-          const unviewedNotifications = fetchedNotifications.filter((notification) => !notification.viewed);
-          setNotificationCount(unviewedNotifications.length);
+
+          // Calculate notification count
+          const unviewedCount = fetchedNotifications.filter((notification) => !notification.viewed).length;
+          setNotificationCount(unviewedCount);
         })
         .catch((error) => {
           console.error('Error fetching notifications:', error);
@@ -102,23 +106,32 @@ function StudentNotificationDisplay() {
     }
   }
   
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
   const handleViewNotification = async (notification) => {
-    setSelectedNotification(notification);
-    setShowModal(true);
-  
-    if (!notification.viewed) {
-      const notificationRef = doc(database, 'faculty_notification', notification.id);
-      await updateDoc(notificationRef, {
-        viewedBy: arrayUnion(cookie.email)
-      });
-  
-      const updatedNotifications = notifications.map((item) =>
-        item.id === notification.id ? { ...item, viewed: true } : item
-      );
-      setNotifications(updatedNotifications);
-      setNotificationCount(notificationCount - 1);
+    const user = auth.currentUser;
+    if (user) {
+      const userEmail = user.email;
+      setSelectedNotification(notification);
+      setShowModal(true);
+
+      // Mark notification as viewed if not already viewed by the current user
+      if (!notification.viewed) {
+        const notificationRef = doc(database, 'faculty_notification', notification.id);
+        await updateDoc(notificationRef, { viewedBy: arrayUnion(userEmail) });
+
+        // Update local state and notification count
+        const updatedNotifications = notifications.map((item) =>
+          item.id === notification.id ? { ...item, viewed: true } : item
+        );
+        setNotifications(updatedNotifications);
+        const unviewedCount = updatedNotifications.filter((notification) => !notification.viewed).length;
+        setNotificationCount(unviewedCount);
+      }
     }
-  };  
+  };
 
   const handleCloseModal = () => {
     setSelectedNotification(null);
