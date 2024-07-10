@@ -22,6 +22,7 @@ function FacultyInterface() {
   const [showModals, setShowModals] = useState(false);
   const [cookie, setCookie] = useCookies(["email"]);
   const [userData, setUserData] = useState([]);
+  const [selectedNotification, setSelectedNotification] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null); // State to hold the profile image URL
     
       function redirectToFacultyNotification(){
@@ -64,18 +65,58 @@ function FacultyInterface() {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0); // Add state for notification count
 
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
+  //     const updatedNotifications = snapshot.docs.map(doc => doc.data());
+  //     setNotifications(updatedNotifications);
+
+  //     // Update notification count based on unviewed notifications
+  //     const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+  //     setNotificationCount(unviewedNotifications.length);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
-      const updatedNotifications = snapshot.docs.map(doc => doc.data());
+      const userEmail = cookie.email;
+      const updatedNotifications = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          viewed: data.viewedBy?.includes(userEmail) || false,
+        };
+      });
+  
+      updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
       setNotifications(updatedNotifications);
-
-      // Update notification count based on unviewed notifications
+  
       const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
       setNotificationCount(unviewedNotifications.length);
     });
-
+  
     return () => unsubscribe();
-  }, []);
+  }, [cookie.email]);
+  
+  const handleViewNotificationDetails = async (notification) => {
+    setSelectedNotification(notification);
+    setShowModals(true);
+  
+    if (!notification.viewed) {
+      const notificationRef = doc(database, 'admin_notification', notification.id);
+      await updateDoc(notificationRef, {
+        viewedBy: arrayUnion(cookie.email)
+      });
+  
+      const updatedNotifications = notifications.map((item) =>
+        item.id === notification.id ? { ...item, viewed: true } : item
+      );
+      setNotifications(updatedNotifications);
+      setNotificationCount(notificationCount - 1);
+    }
+  };  
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];

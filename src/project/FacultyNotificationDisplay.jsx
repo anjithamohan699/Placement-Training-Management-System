@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, doc, updateDoc, where, query, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot, doc, updateDoc, where, query, getDocs ,arrayUnion} from 'firebase/firestore';
 import './FacultyNotificationDisplay.css';
 import { FaBell, FaEye, FaFile } from 'react-icons/fa'; // Added FaFile for attachment icon
 import { database } from '../Firebase';
@@ -13,6 +13,7 @@ const FacultyNotificationDisplay = () => {
 
   const [notifications, setNotifications] = useState([]);
   const [selectedNotifications, setSelectedNotifications] = useState(null);
+  const [selectedNotification, setSelectedNotification] = useState(null);
   const [showModals, setShowModals] = useState(false);
   const [showAllNotifications, setShowAllNotifications] = useState(false);
   const [cookie, setCookie] = useCookies(["email"]);
@@ -24,42 +25,78 @@ const FacultyNotificationDisplay = () => {
   const [inputValue, setInputValue] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
+  //     const updatedNotifications = snapshot.docs.map(doc => ({
+  //       id: doc.id,
+  //       date: doc.data().date,
+  //       description: doc.data().description,
+  //       viewed: doc.data().viewed,
+  //       attachmentUrl: doc.data().attachmentUrl // Include attachmentUrl in the object
+  //     }));
+  //     updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed? 1: -1));
+  //     setNotifications(updatedNotifications);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
+  // const handleViewNotificationDetails = (notification) => {
+  //   setSelectedNotifications(notification);
+  //   setShowModals(true);
+
+  //   const notificationRef = doc(database, 'admin_notification', notification.id);
+  //   updateDoc(notificationRef, {
+  //     viewed: true
+  //   })
+  //   .then(() => {
+  //     console.log("Notification viewed status updated successfully");
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error updating notification viewed status: ", error);
+  //   });
+
+  //   const updatedNotifications = notifications.map((item) =>
+  //     item.id === notification.id ? { ...item, viewed: true } : item
+  //   );
+  //   setNotifications(updatedNotifications);
+  // };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
-      const updatedNotifications = snapshot.docs.map(doc => ({
-        id: doc.id,
-        date: doc.data().date,
-        description: doc.data().description,
-        viewed: doc.data().viewed,
-        attachmentUrl: doc.data().attachmentUrl // Include attachmentUrl in the object
-      }));
-      updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed? 1: -1));
+      const userEmail = cookie.email;
+      const updatedNotifications = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          viewed: data.viewedBy?.includes(userEmail) || false,
+        };
+      });
+  
+      updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
       setNotifications(updatedNotifications);
     });
-
+  
     return () => unsubscribe();
-  }, []);
-
-  const handleViewNotificationDetails = (notification) => {
-    setSelectedNotifications(notification);
+  }, [cookie.email]);
+  
+  const handleViewNotificationDetails = async (notification) => {
+    setSelectedNotification(notification);
     setShowModals(true);
-
-    const notificationRef = doc(database, 'admin_notification', notification.id);
-    updateDoc(notificationRef, {
-      viewed: true
-    })
-    .then(() => {
-      console.log("Notification viewed status updated successfully");
-    })
-    .catch((error) => {
-      console.error("Error updating notification viewed status: ", error);
-    });
-
-    const updatedNotifications = notifications.map((item) =>
-      item.id === notification.id ? { ...item, viewed: true } : item
-    );
-    setNotifications(updatedNotifications);
-  };
+  
+    if (!notification.viewed) {
+      const notificationRef = doc(database, 'admin_notification', notification.id);
+      await updateDoc(notificationRef, {
+        viewedBy: arrayUnion(cookie.email)
+      });
+  
+      const updatedNotifications = notifications.map((item) =>
+        item.id === notification.id ? { ...item, viewed: true } : item
+      );
+      setNotifications(updatedNotifications);
+    }
+  };  
 
   const handleCloseModal = () => {
     setShowModals(false);
