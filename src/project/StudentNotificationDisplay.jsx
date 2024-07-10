@@ -30,6 +30,52 @@ function StudentNotificationDisplay() {
     return date.toLocaleDateString();
   };
 
+  // function fetchNotifications() {
+  //   const user = auth.currentUser;
+  //   if (user) {
+  //     const userEmail = user.email;
+  //     const notificationsCollection = collection(database, 'faculty_notification');
+  //     const notificationsQuery = query(notificationsCollection, where('studentsToNotify', 'array-contains', userEmail));
+  
+  //     getDocs(notificationsQuery)
+  //       .then((notificationsSnapshot) => {
+  //         const fetchedNotifications = notificationsSnapshot.docs.map((doc) => ({
+  //           id: doc.id,
+  //           ...doc.data(),
+  //         }));
+  //         fetchedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed? 1: -1));
+  //         setNotifications(fetchedNotifications);
+  
+  //         const unviewedNotifications = fetchedNotifications.filter((notification) => !notification.viewed);
+  //         setNotificationCount(unviewedNotifications.length);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error fetching notifications:', error);
+  //       });
+  //   }
+  // }
+  
+  // useEffect(() => {
+  //   fetchNotifications();
+  // }, []);
+
+  // const handleViewNotification = (notification) => {
+  //   setSelectedNotification(notification);
+  //   setShowModal(true);
+  
+  //   const notificationRef = doc(database, 'faculty_notification', notification.id);
+  //   updateDoc(notificationRef, {
+  //     viewed: true
+  //   })
+  //     .then(() => {
+  //       console.log("Notification viewed status updated successfully");
+  //       fetchNotifications();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating notification viewed status: ", error);
+  //     });
+  // };
+  
   function fetchNotifications() {
     const user = auth.currentUser;
     if (user) {
@@ -42,8 +88,9 @@ function StudentNotificationDisplay() {
           const fetchedNotifications = notificationsSnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
+            viewed: doc.data().viewedBy?.includes(userEmail) || false,
           }));
-          fetchedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed? 1: -1));
+          fetchedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
           setNotifications(fetchedNotifications);
   
           const unviewedNotifications = fetchedNotifications.filter((notification) => !notification.viewed);
@@ -55,25 +102,22 @@ function StudentNotificationDisplay() {
     }
   }
   
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
-
-  const handleViewNotification = (notification) => {
+  const handleViewNotification = async (notification) => {
     setSelectedNotification(notification);
     setShowModal(true);
   
-    const notificationRef = doc(database, 'faculty_notification', notification.id);
-    updateDoc(notificationRef, {
-      viewed: true
-    })
-      .then(() => {
-        console.log("Notification viewed status updated successfully");
-        fetchNotifications();
-      })
-      .catch((error) => {
-        console.error("Error updating notification viewed status: ", error);
+    if (!notification.viewed) {
+      const notificationRef = doc(database, 'faculty_notification', notification.id);
+      await updateDoc(notificationRef, {
+        viewedBy: arrayUnion(cookie.email)
       });
+  
+      const updatedNotifications = notifications.map((item) =>
+        item.id === notification.id ? { ...item, viewed: true } : item
+      );
+      setNotifications(updatedNotifications);
+      setNotificationCount(notificationCount - 1);
+    }
   };  
 
   const handleCloseModal = () => {

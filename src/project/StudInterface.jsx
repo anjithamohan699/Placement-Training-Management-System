@@ -83,18 +83,58 @@ function StudInterface(props) {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0); // Add state for notification count
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(database, 'faculty_notification'), (snapshot) => {
-      const updatedNotifications = snapshot.docs.map(doc => doc.data());
-      setNotifications(updatedNotifications);
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(collection(database, 'faculty_notification'), (snapshot) => {
+  //     const updatedNotifications = snapshot.docs.map(doc => doc.data());
+  //     setNotifications(updatedNotifications);
 
-      // Update notification count based on unviewed notifications
-      const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
-      setNotificationCount(unviewedNotifications.length);
+  //     // Update notification count based on unviewed notifications
+  //     const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+  //     setNotificationCount(unviewedNotifications.length);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
+useEffect(() => {
+  const unsubscribe = onSnapshot(collection(database, 'faculty_notification'), (snapshot) => {
+    const updatedNotifications = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        viewed: data.viewedBy?.includes(cookie.email) || false,
+      };
     });
 
-    return () => unsubscribe();
-  }, []);
+    updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
+    setNotifications(updatedNotifications);
+
+    // Update notification count based on unviewed notifications
+    const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+    setNotificationCount(unviewedNotifications.length);
+  });
+
+  return () => unsubscribe();
+}, [cookie.email]);
+
+const handleViewNotificationDetails = async (notification) => {
+  setSelectedNotification(notification);
+  setShowModal(true);
+
+  if (!notification.viewed) {
+    const notificationRef = doc(database, 'faculty_notification', notification.id);
+    await updateDoc(notificationRef, {
+      viewedBy: arrayUnion(cookie.email)
+    });
+
+    const updatedNotifications = notifications.map((item) =>
+      item.id === notification.id ? { ...item, viewed: true } : item
+    );
+    setNotifications(updatedNotifications);
+    setNotificationCount(notificationCount - 1);
+  }
+};
       
   return (
     <>
