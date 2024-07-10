@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 .navbar {
   width: 100%;
   height: 5rem;
@@ -5,16 +10,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 }
 
 label {
   color: white;
   font-weight: 700;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 14px;
-  text-shadow: none;
-  margin-left: 20px;
-  margin-top: 25px;
+  font-size: 1rem;
+  margin: 0 1rem;
 }
 
 .first-portion {
@@ -22,161 +25,74 @@ label {
   align-items: center;
 }
 
-.last-portions{
-  display:flex;
-  align-items:center;
-  margin-top: 30px;
+.last-portions {
+  display: flex;
+  align-items: center;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.last-portions li{
-  font-size: medium;
+.last-portions li {
+  font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
+  margin: 0 1rem;
 }
 
-.navbar p{
-  float:left;
-  color:white;
+.navbar p {
+  color: white;
   text-align: center;
-  padding:10px;
+  padding: 10px;
   text-decoration: none;
-  font-size:18px;
-  line-height: 15px;
-  border-radius:4px;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  border-radius: 4px;
 }
 
-
-
-.lists{
-  text-decoration:none;
-  color:white;
-  margin:0 1rem;
-  padding:10px;
+.lists {
   text-decoration: none;
+  color: white;
+  margin: 0 1rem;
+  padding: 10px;
   display: flex;
 }
 
-body{
-  margin: 0;
+.nav-list {
+  text-decoration: none;
+  color: white;
+  margin: 0 1rem;
+  padding: 10px;
 }
 
-.nav-list.active{
+.nav-list.active {
   background-color: rgba(137, 137, 137, 0.5);
   border-bottom: 3px solid white;
   border-radius: 2px;
   height: 25px;
 }
-  
-.icon{
-  height: 50px;
-  width: 40px;
+
+.icon {
+  height: 3.125rem;
+  width: 2.5rem;
 }
 
-.sidebutton {
-  border-radius: 0px;
-  width: 300px;
-  height: 65px;
-  font-size: medium;
-  background-color: white;
-  border: 0cm;
-  color: rgb(70, 67, 67);
-  margin-left: 0px;
-  margin-top: 0px;
-  }
-  
-  .sidebutton:hover{
-      background-color: rgb(242, 242, 252);
-  }
-  
-  
-  .sidediv{
-      height: 65px;
-      width: 300px;
-      border-style: ridge;
-      border-color: rgb(206, 204, 204);
-      border-width: thin;
-      margin-bottom: -1px;
-  }
-  
-  
-
-  .image-stud{
-    width: 300px;
-    height: 340px;
-    background-color: white;
-    border-style: ridge;
-    border-color: rgb(206, 204, 204);
-    border-width: thin;
-    margin-bottom: -1px;
-  }
-  
-.stud-img{
-  width: 280px;
-  height: 320px;
-  padding-left: 10px;
-  padding-top: 10px;
+.bell-icon-containers {
+  display: inline-block;
+  position: relative;
 }
 
-  .show{
-      display: block;
-  }
-  .sidebutton:focus{
-      background-color: #043565;
-      color:white;
-  }
-  
-  .sidebar{
-    margin-left: 25px;
-    margin-top: 25px;
-  }
+.bell-icons {
+  margin-left: 5px;
+}
 
-  .outer-container{
-    display: flex;
-    flex-direction: row;
-  }
-
-  .top-div{
-    width: 1160px;
-    height: 110px;
-    background-color: aqua;
-    margin-left: 25px;
-    margin-top: 25px;
-    background-color: white;
-    border-style: ridge;
-    border-color: rgb(206, 204, 204);
-    border-width: thin;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    align-content: center;
-    position: relative;
-  }
-
-  .nav-list{
-    text-decoration:none;
-    color:white;
-    margin:0 1rem;
-    padding:10px;
-  }
-
-  .bell-icon-containers {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .bell-icons {
-    margin-left: 5px;
-  }
-  
-  .notification-counts {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 5px;
-    font-size: 12px;
-  }
+.notification-counts {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 0.75rem;
+}

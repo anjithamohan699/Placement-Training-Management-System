@@ -129,7 +129,7 @@ function EventCalendar() {
               color:black;
               border-radius:0;
             }
-
+              
         `}
         </style>
         <Calendar className="calendar-container"
