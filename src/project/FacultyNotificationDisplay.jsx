@@ -149,17 +149,39 @@ const FacultyNotificationDisplay = () => {
   const [notification, setNotification] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
 
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
+  //     const updatedNotifications = snapshot.docs.map(doc => doc.data());
+  //     setNotification(updatedNotifications);
+
+  //     const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+  //     setNotificationCount(unviewedNotifications.length);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
-      const updatedNotifications = snapshot.docs.map(doc => doc.data());
-      setNotification(updatedNotifications);
-
+      const userEmail = cookie.email;
+      const updatedNotifications = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          viewed: data.viewedBy?.includes(userEmail) || false,
+        };
+      });
+  
+      updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
+      setNotifications(updatedNotifications);
+  
       const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
       setNotificationCount(unviewedNotifications.length);
     });
-
+  
     return () => unsubscribe();
-  }, []);
+  }, [cookie.email]);
 
   useEffect(() => {
     const fetchDataFromFirestore = async () => {
