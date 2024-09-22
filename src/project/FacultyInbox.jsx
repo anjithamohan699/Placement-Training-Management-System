@@ -26,6 +26,9 @@ const FacultyInbox = () => {
   const [userData, setUserData] = useState([]);
   const [profileImageUrl, setProfileImageUrl] = useState(null); // State to hold the profile image URL
 
+  const [adminNotifications, setAdminNotifications] = useState([]); // Keep admin notifications separate
+  const [facultyNotifications, setFacultyNotifications] = useState([]); // Use for faculty inbox notifications
+
   const formatDate = (timestamp) => {
     if (!timestamp) return '';
 
@@ -38,42 +41,94 @@ const FacultyInbox = () => {
     return date.toLocaleDateString();
   };
 
+  // useEffect(() => {
+  //   const fetchNotifications = async () => {
+  //     const notificationsCollection = collection(database, 'faculty_notification');
+  //     const notificationsQuery = query(notificationsCollection);
+
+  //     try {
+  //       const notificationsSnapshot = await getDocs(notificationsQuery);
+  //       const fetchedNotifications = [];
+
+  //       for (const docRef of notificationsSnapshot.docs) {
+  //         const notificationData = docRef.data();
+  //         const studentsToNotify = notificationData.studentsToNotify || [];
+
+  //         const studentDetails = [];
+
+  //         // Fetch student names based on emails in studentsToNotify
+  //         for (const studentEmail of studentsToNotify) {
+  //           const studentQuery = query(collection(database, 'students'), where('email', '==', studentEmail));
+  //           const studentQuerySnapshot = await getDocs(studentQuery);
+
+  //           if (!studentQuerySnapshot.empty) {
+  //             // Assuming each email matches only one student (unique email)
+  //             const studentData = studentQuerySnapshot.docs[0].data();
+  //             const studentName = studentData.name;
+
+  //             studentDetails.push({
+  //               email: studentEmail,
+  //               name: studentName,
+  //             });
+  //           } else {
+  //             console.warn('No student found for email:', studentEmail);
+  //             // Handle case where student with the email is not found
+  //           }
+  //         }
+
+  //         fetchedNotifications.push({
+  //           id: docRef.id,
+  //           timestamp: notificationData.timestamp,
+  //           description: notificationData.description,
+  //           attachmentUrl: notificationData.attachmentUrl,
+  //           cgpaCondition: notificationData.selectedCgpaCondition,
+  //           students: studentDetails,
+  //         });
+  //       }
+
+  //       setNotifications(fetchedNotifications);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching notifications:', error);
+  //     }
+  //   };
+
+  //   fetchNotifications();
+  // }, []);
+
   useEffect(() => {
-    const fetchNotifications = async () => {
+    const fetchFacultyNotifications = async () => {
       const notificationsCollection = collection(database, 'faculty_notification');
       const notificationsQuery = query(notificationsCollection);
-
+  
       try {
         const notificationsSnapshot = await getDocs(notificationsQuery);
-        const fetchedNotifications = [];
-
+        const fetchedFacultyNotifications = [];
+  
         for (const docRef of notificationsSnapshot.docs) {
           const notificationData = docRef.data();
           const studentsToNotify = notificationData.studentsToNotify || [];
-
+  
           const studentDetails = [];
-
-          // Fetch student names based on emails in studentsToNotify
+  
           for (const studentEmail of studentsToNotify) {
             const studentQuery = query(collection(database, 'students'), where('email', '==', studentEmail));
             const studentQuerySnapshot = await getDocs(studentQuery);
-
+  
             if (!studentQuerySnapshot.empty) {
-              // Assuming each email matches only one student (unique email)
               const studentData = studentQuerySnapshot.docs[0].data();
               const studentName = studentData.name;
-
+  
               studentDetails.push({
                 email: studentEmail,
                 name: studentName,
               });
             } else {
               console.warn('No student found for email:', studentEmail);
-              // Handle case where student with the email is not found
             }
           }
-
-          fetchedNotifications.push({
+  
+          fetchedFacultyNotifications.push({
             id: docRef.id,
             timestamp: notificationData.timestamp,
             description: notificationData.description,
@@ -82,16 +137,17 @@ const FacultyInbox = () => {
             students: studentDetails,
           });
         }
-
-        setNotifications(fetchedNotifications);
+  
+        // Only set faculty notifications for display in the inbox
+        setFacultyNotifications(fetchedFacultyNotifications);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching notifications:', error);
+        console.error('Error fetching faculty notifications:', error);
       }
     };
-
-    fetchNotifications();
-  }, []);
+  
+    fetchFacultyNotifications();
+  }, []);  
 
   const openModal = (notification) => {
     setSelectedNotification(notification);
@@ -175,10 +231,32 @@ const [notificationCount, setNotificationCount] = useState(0); // Add state for 
 // return () => unsubscribe();
 // }, []);
 
+// useEffect(() => {
+//   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
+//     const userEmail = cookie.email;
+//     const updatedNotifications = snapshot.docs.map(doc => {
+//       const data = doc.data();
+//       return {
+//         id: doc.id,
+//         ...data,
+//         viewed: data.viewedBy?.includes(userEmail) || false,
+//       };
+//     });
+
+//     updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
+//     setNotifications(updatedNotifications);
+
+//     const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+//     setNotificationCount(unviewedNotifications.length);
+//   });
+
+//   return () => unsubscribe();
+// }, [cookie.email]);
+
 useEffect(() => {
   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
     const userEmail = cookie.email;
-    const updatedNotifications = snapshot.docs.map(doc => {
+    const updatedAdminNotifications = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -187,10 +265,11 @@ useEffect(() => {
       };
     });
 
-    updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
-    setNotifications(updatedNotifications);
+    // Set the admin notifications but not use them for display in faculty inbox
+    setAdminNotifications(updatedAdminNotifications);
 
-    const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+    // Update notification count for the bell icon
+    const unviewedNotifications = updatedAdminNotifications.filter(notification => !notification.viewed);
     setNotificationCount(unviewedNotifications.length);
   });
 
@@ -368,7 +447,7 @@ useEffect(() => {
     <div className="fac-Inbox-notifications-display-container">
       <h1 className="fac-Inbox-noti-h1">NOTIFICATIONS</h1>
       <div className="fac-Inbox-notification-list">
-        {notifications.map((notification) => (
+        {facultyNotifications.map((notification) => (
           <div key={notification.id} className="fac-Inbox-notification-box">
             <div className='date-paragraph'><p>{formatDate(notification.timestamp)}</p></div>
             <div className="fac-Inbox-descp-inbox">
