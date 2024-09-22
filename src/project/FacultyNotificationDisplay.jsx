@@ -394,14 +394,14 @@ const FacultyNotificationDisplay = () => {
             </button>
           )}
 
-          {showModals && selectedNotifications && (
+          {showModals && selectedNotification && (
             <div className="display-overlay">
               <div className="modal-display">
                 <span className="close-button-display" onClick={handleCloseModal}>×</span>
                 <h2>Notification Details</h2>
-                <p>{selectedNotifications.description}</p>
-                {selectedNotifications.attachmentUrl && (
-                  <a href={selectedNotifications.attachmentUrl} target="_blank" rel="noopener noreferrer" className="attachment-link">
+                <p>{selectedNotification.description}</p>
+                {selectedNotification.attachmentUrl && (
+                  <a href={selectedNotification.attachmentUrl} target="_blank" rel="noopener noreferrer" className="attachment-link">
                     View Attachment
                   </a>
                 )}
