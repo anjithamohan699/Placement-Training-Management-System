@@ -63,12 +63,31 @@ function FacultyProfile() {
           setModels(!models);
         };
 
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
+  //     const updatedNotifications = snapshot.docs.map(doc => doc.data());
+  //     setNotifications(updatedNotifications);
+
+  //     // Update notification count based on unviewed notifications
+  //     const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
+  //     setNotificationCount(unviewedNotifications.length);
+  //   });
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'admin_notification'), (snapshot) => {
-      const updatedNotifications = snapshot.docs.map(doc => doc.data());
+      const userEmail = cookie.email;
+      const updatedNotifications = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          viewed: data.viewedBy?.includes(userEmail) || false,
+        };
+      });
+  
+      updatedNotifications.sort((a, b) => (a.viewed === b.viewed ? 0 : a.viewed ? 1 : -1));
       setNotifications(updatedNotifications);
-
-      // Update notification count based on unviewed notifications
+  
       const unviewedNotifications = updatedNotifications.filter(notification => !notification.viewed);
       setNotificationCount(unviewedNotifications.length);
     });
@@ -90,7 +109,7 @@ function FacultyProfile() {
   };
 
     return () => unsubscribe();
-  }, []);
+  }, [cookie.email]);
       
 
   useEffect(() => {
