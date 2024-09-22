@@ -96,8 +96,6 @@ function StudInterface(props) {
   //   return () => unsubscribe();
   // }, []);
 
-  
-
 useEffect(() => {
   const unsubscribe = onSnapshot(query(collection(database, 'faculty_notification'), where('studentsToNotify', 'array-contains', cookie.email)), (snapshot) => {
     const updatedNotifications = snapshot.docs.map(doc => {
