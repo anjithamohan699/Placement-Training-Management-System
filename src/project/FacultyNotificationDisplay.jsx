@@ -18,7 +18,7 @@ const FacultyNotificationDisplay = () => {
   const [showAllNotifications, setShowAllNotifications] = useState(false);
   const [cookie, setCookie] = useCookies(["email"]);
   const [userData, setUserData] = useState([]);
-  const [profileImageUrl, setProfileImageUrl] = useState(null); // State to hold the profile image URL
+  const [profileImageUrl, setProfileImageUrl] = useState(null); 
   const [csvData, setCsvData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
