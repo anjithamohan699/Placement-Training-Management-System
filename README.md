@@ -61,6 +61,28 @@ PTMS includes three core user roles, each with role-specific functionality:
 
 ---
 
+## 🌐 Hosting & Live Access
+
+The PTMS application is deployed on Vercel, enabling fast, secure, and globally distributed access via its built-in CDN.
+
+### 🔗 Live Application
+
+👉 https://placement-management-three.vercel.app/
+
+### ⚙️ Deployment Overview
+
+    Platform: Vercel
+
+    Framework: ReactJS (with Vite)
+
+    CI/CD: Integrated with GitHub for automatic deployment on every push
+
+    Environment Config: Firebase credentials and configuration managed securely via Vercel’s Environment Variables
+    
+    CDN Support: Static assets and frontend resources are served globally for optimized speed
+
+---
+
 ## 🔮 Future Scope
 
 * 📱 Develop a **mobile app** version to enhance accessibility.
@@ -78,3 +100,6 @@ PTMS includes three core user roles, each with role-specific functionality:
 * 📣 Improves student engagement through timely updates.
 * 🔄 Scalable and adaptable for future enhancements.
 
+
+
+    
